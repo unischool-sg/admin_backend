@@ -48,7 +48,7 @@ app.use(async (c, next) => {
   c.set('resend', resend);
   await next();
 });
-app.use('/api', middleware);  // 認証ミドルウェアをAPIルートに適用
-app.route('/api', apiRouter); // APIルートをマウント
+app.use('/', middleware);  // 認証ミドルウェアをAPIルートに適用
+app.route('/', apiRouter); // APIルートをマウント
 
 export default app;
