@@ -31,7 +31,7 @@ export type Env = {
     D1_DATABASE: D1Database; // Cloudflare D1データベースのバインディング
 
     // 環境変数バインディング
-    JWR_SECRET: string; // JWTのシークレットキー
+    JWT_SECRET: string; // JWTのシークレットキー
     RESEND_API_KEY: string; // メール送信APIのエンドポイント
     FRONTEND_URL: string;
   }
