@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+
 // Utilities for Cloudflare Workers (Web Crypto API)
 const deriveAesKey = async (secret: string): Promise<CryptoKey> => {
     const enc = new TextEncoder();
@@ -33,4 +35,12 @@ const decrypt = async (encryptedB64: string, secret: string): Promise<string> =>
     return new TextDecoder().decode(decrypted);
 }
 
-export { encrypt, decrypt };
+const passwordHash = async (password: string): Promise<string> => {
+    return await bcrypt.hash(password, 10);
+}
+
+const passwordCompare = async (password: string, hash: string): Promise<boolean> => {
+    return await bcrypt.compare(password, hash);
+}
+
+export { encrypt, decrypt, passwordHash, passwordCompare };

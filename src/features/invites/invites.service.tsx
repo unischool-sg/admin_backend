@@ -1,18 +1,17 @@
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Resend } from "resend";
-import { eq } from "drizzle-orm";
 import { invites } from "../../lib/schema";
 import { randomString } from "../../lib/utils/key";
 import { Invite } from "../../components/invite";
-import bcrypt from "bcryptjs";
+import { sha256Hex } from "../../lib/utils/hash";
 
 
 class InvitesService {
     constructor() {}
 
     async createToken(db: DrizzleD1Database, teamId: string, email: string, role: string, expiredAt: number): Promise<string> {
-        const token = randomString(32); // 32文字のランダムなトークンを生成
-        const tokenHash = await bcrypt.hash(token, 10); // トークンをハッシュ化して保存
+        const token = randomString(32);                 // 32文字のランダムなトークンを生成
+        const tokenHash = await sha256Hex(token); // トークンをハッシュ化して保存
         const result = await db.insert(invites).values({
             id: tokenHash, // 招待IDもランダムに生成
             teamId,
