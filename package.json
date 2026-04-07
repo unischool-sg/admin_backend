@@ -6,7 +6,7 @@
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "migrate": "drizzle-kit generate:sqlite && wrangler d1 migrations apply unischool_member_management_system",
-    "migrate:remote": "drizzle-kit generate:sqlite --config drizzle.config.ts && wrangler d1 migrations apply unischool_member_management_system --remote"
+    "migrate:remote": "drizzle-kit generate --config=drizzle.config.ts && wrangler d1 migrations apply unischool_member_management_system --remote"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260301.1",
