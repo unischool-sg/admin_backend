@@ -20,6 +20,8 @@ import { Resend } from 'resend';
 import { apiRouter } from './routes/route';
 import { middleware } from './features/middleware';
 
+const ROOT_PATH = '/api';
+
 export type Env = {
   Variables: {
     name: string;
@@ -48,7 +50,7 @@ app.use(async (c, next) => {
   c.set('resend', resend);
   await next();
 });
-app.use('/', middleware);  // 認証ミドルウェアをAPIルートに適用
-app.route('/', apiRouter); // APIルートをマウント
+app.use(ROOT_PATH, middleware);  // 認証ミドルウェアをAPIルートに適用
+app.route(ROOT_PATH, apiRouter); // APIルートをマウント
 
 export default app;
