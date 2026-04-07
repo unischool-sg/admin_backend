@@ -11,13 +11,13 @@ const apiRouter = new Hono<Env>();
 const authClient = new Hono<Env>();
 const authController = new AuthController(new AuthService());
 authClient.post('/login', (c) => authController.login<typeof c>(c));
-authClient.post('/register', (c) => authController.register(c));
-authClient.get('/me', (c) => authController.me(c));
+authClient.post('/register', (c) => authController.register<typeof c>(c));
+authClient.get('/me', (c) => authController.me<typeof c>(c));
 
 // 招待関連のルート
 const invitesClient = new Hono<Env>();
 const invitesController = new InvitesController(new InvitesService());
-invitesClient.post('/', (c) => invitesController.generateToken(c));
+invitesClient.post('/', (c) => invitesController.generateToken<typeof c>(c));
 
 // APIルートにクライアントをマウント
 apiRouter.route('/invites', invitesClient);
