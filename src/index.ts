@@ -53,4 +53,5 @@ app.use(async (c, next) => {
 app.use(ROOT_PATH, middleware);  // 認証ミドルウェアをAPIルートに適用
 app.route(ROOT_PATH, apiRouter); // APIルートをマウント
 
+
 export default app;
