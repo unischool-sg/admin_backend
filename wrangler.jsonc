@@ -7,7 +7,7 @@
     "nodejs_compat"
   ],
   "vars": {
-    "FRONTEND_URL": "https://admin.unischool.jp"
+    "FRONTEND_URL": "https://admin.unischool.jp",
   },
   // "kv_namespaces": [
   //   {

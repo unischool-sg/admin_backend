@@ -22,7 +22,7 @@ const middleware = async (c: ContextWithEnv, next: Next) => {
 
     // 認証トークンの検証
     const token = getTokenFromHeader(c);
-    const isAuthed = token ? await verifyToken(token, c.env.JWR_SECRET ?? "DEFAULT_JWT_TOKEN") : null;
+    const isAuthed = token ? await verifyToken(token, c.env.JWT_SECRET ?? "DEFAULT_JWT_TOKEN") : null;
     c.set('isAuthed', isAuthed as SessionPayload | null);
 
     console.log('Request received:', c.req.method, c.req.url);

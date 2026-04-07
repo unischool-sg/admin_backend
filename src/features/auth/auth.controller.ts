@@ -24,7 +24,7 @@ class AuthController {
                 exp: Math.floor(Date.now() / 1000) + SESSION_EXPIRATION,
                 type: 'session'
             }
-            const jwtToken = await createToken(payload, c.env.JWR_SECRET);
+            const jwtToken = await createToken(payload, c.env.JWT_SECRET);
 
             return ok({
                 token: jwtToken,
