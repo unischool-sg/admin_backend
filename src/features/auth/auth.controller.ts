@@ -13,8 +13,19 @@ class AuthController {
 
     async login<T = ContextWithEnv>(c: ContextType<T>) {
         const body = await c.req.json();
-        const { email, password } = LoginAPIPayload.parse(body); // 入力のバリデーション
+        let email: string | undefined, password: string | undefined;
+
+        try {
+            const data = LoginAPIPayload.parse(body); // 入力のバリデーション
+            email = data.email;
+            password = data.password;
+        } catch (error) {
+            console.error('Login payload validation failed:', error);
+            return forbidden('Invalid email or password');
+        }
+        
         const db = c.get('db');
+
         try {
             const isValid = await this.authService.verifyUser(db, String(email), String(password));
             if (isValid === null) return forbidden('Invalid email or password');
@@ -50,7 +61,15 @@ class AuthController {
         }
         
         const body = await c.req.json();
-        const { email, password } = RegisterAPIPayload.parse(body); // 入力のバリデーション
+        let email: string | undefined, password: string | undefined;
+        try {
+            const data = RegisterAPIPayload.parse(body); // 入力のバリデーション
+            email = data.email;
+            password = data.password;
+        } catch (error) {
+            console.error('Registration payload validation failed:', error);
+            return forbidden('Invalid email or password');
+        }
 
         // ここでユーザー登録のロジックを実装（例: データベースへの保存など）
         try {
