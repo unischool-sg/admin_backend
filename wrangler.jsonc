@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "member_management_system",
+  "name": "admin-backend",
   "main": "src/index.ts",
   "compatibility_date": "2026-02-16",
   "compatibility_flags": [
