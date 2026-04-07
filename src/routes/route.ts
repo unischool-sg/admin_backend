@@ -22,6 +22,7 @@ invitesClient.post('/', (c) => invitesController.generateToken(c));
 // APIルートにクライアントをマウント
 apiRouter.route('/invites', invitesClient);
 apiRouter.route('/auth', authClient);
+apiRouter.get('/', (c) => c.json({ message: 'Hello world from API!' })); // テスト用のルート
 apiRouter.get('/ping', (c) => c.json({ message: 'pong' })); // テスト用のルート
 
 export { apiRouter };
