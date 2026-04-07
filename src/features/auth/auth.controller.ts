@@ -51,15 +51,7 @@ class AuthController {
         const token = c.req.query('token');
         if (!token) return forbidden('Invite token is required');
 
-        // 招待トークンの検証とユーザー登録の処理をここに実装
-        try {
-            const isValidInvite = await this.authService.verifyInvite(c.get('db'), String(token));
-            if (!isValidInvite) return forbidden('Invalid invite token');
-        } catch (error) {
-            console.error('Invite token verification failed:', error);
-            return internalServerError('Internal server error');
-        }
-        
+        // 入力のバリデーション
         const body = await c.req.json();
         let email: string | undefined, password: string | undefined;
         try {
@@ -71,6 +63,19 @@ class AuthController {
             return forbidden('Invalid email or password');
         }
 
+        // 招待トークンの検証とユーザー登録の処理をここに実装
+        try {
+            const isValidInvite = await this.authService.verifyInvite(c.get('db'), String(token));
+            if (!isValidInvite) return forbidden('Invalid invite token');
+
+            if (isValidInvite.email !== email) {
+                return forbidden('Email does not match the invite token');
+            }
+        } catch (error) {
+            console.error('Invite token verification failed:', error);
+            return internalServerError('Internal server error');
+        }
+        
         // ここでユーザー登録のロジックを実装（例: データベースへの保存など）
         try {
             await this.authService.registerUser(c.get('db'), String(email), String(password));

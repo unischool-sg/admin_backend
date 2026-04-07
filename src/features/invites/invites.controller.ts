@@ -21,7 +21,7 @@ class InvitesController {
                 result
             );
 
-            return created(result, 'Invite token generated successfully');
+            return created({ token: result }, 'Invite token generated successfully');
         } catch (error) {
             console.error('Token generation failed:', error);
             return internalServerError('Internal server error', error instanceof Error ? error.message : String(error));

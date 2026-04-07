@@ -13,7 +13,6 @@ class InvitesService {
     async createToken(db: DrizzleD1Database, teamId: string, email: string, role: string, expiredAt: number): Promise<string> {
         const token = randomString(32); // 32文字のランダムなトークンを生成
         const tokenHash = await bcrypt.hash(token, 10); // トークンをハッシュ化して保存
-
         const result = await db.insert(invites).values({
             id: tokenHash, // 招待IDもランダムに生成
             teamId,
@@ -44,6 +43,9 @@ class InvitesService {
             subject: "【UniSchool】UniSchoolチームへの招待",
             react: <Invite inviteUrl={inviteUrl} />
         });
+        console.log(result);
+
+        return result;
     }
 }
 
